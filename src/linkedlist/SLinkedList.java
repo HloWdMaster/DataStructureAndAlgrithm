@@ -19,7 +19,7 @@ public class SLinkedList<T> {
     }
 
     public Node<T> remove(T data){  //删除一个元素
-        
+
     }
 
     private class Node<T> {

@@ -58,7 +58,7 @@ public class SLinkedList<T> implements Iterable<T> {
 
 
     public T remove(int idx) {  //删除一个元素
-        return remove(getNode(idx - 1));
+        return remove(getNode(idx));
     }
 
     private T remove(Node<T> p) {   //删除后一个结点
@@ -85,7 +85,7 @@ public class SLinkedList<T> implements Iterable<T> {
     }
 
     private class SLinkedListIterator implements Iterator<T> {
-        private Node<T> curr = head.next;
+        private Node<T> curr = head;
         private int exceptedModCount = modCount;
         private boolean okToRemove = false;
 
@@ -102,8 +102,8 @@ public class SLinkedList<T> implements Iterable<T> {
             if (!hasNext()) {
                 throw new NoSuchElementException();
             }
-            T nextItem = curr.data;
             curr = curr.next;
+            T nextItem = curr.data;
             okToRemove = true;
             return nextItem;
         }

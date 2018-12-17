@@ -12,6 +12,7 @@ public class Test {
         list.insert(1);
         list.insert(2);
         list.insert(3);
+        list.remove(0);
         System.out.println(list);
     }
 }

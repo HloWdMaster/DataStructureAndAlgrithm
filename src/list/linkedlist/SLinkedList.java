@@ -35,8 +35,8 @@ public class SLinkedList<T> implements Iterable<T> {
 
     private void addAfter(Node<T> p, T data) {
         Node<T> newT = new Node<>(data);
-        p.next = newT;
         newT.next = end;
+        p.next = newT;
 
         size++;
         modCount++;
@@ -49,7 +49,7 @@ public class SLinkedList<T> implements Iterable<T> {
     private Node<T> getNode(int idx, int lower, int upper) {
         if (idx < lower || idx > upper)
             throw new IndexOutOfBoundsException();
-        Node<T> p = head.next;
+        Node<T> p = head;
         for (int i = 0; i < idx; i++) {
             p = p.next;
         }

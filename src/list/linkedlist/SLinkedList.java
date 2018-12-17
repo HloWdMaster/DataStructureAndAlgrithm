@@ -1,4 +1,4 @@
-package linkedlist;
+package list.linkedlist;
 
 /**
  * 单链表实现

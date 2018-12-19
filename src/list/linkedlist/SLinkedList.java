@@ -9,15 +9,13 @@ import java.util.NoSuchElementException;
  */
 public class SLinkedList<T> implements Iterable<T> {
 
-    private Node<T> head;   //头指针
-    private Node<T> end;    //尾指针
+    private Node<T> head;   //哨兵节点
     private int size;   //链表长度
     private int modCount = 0;   //辅助iterator实现修改
 
     public SLinkedList() {
         head = new Node<T>(null);
-        end = new Node<>(null);
-        head.next = end;
+        head.next = null;
         size = 0;
     }
 
@@ -26,16 +24,20 @@ public class SLinkedList<T> implements Iterable<T> {
     }
 
     public void insert(T data) {   //链表尾部添加一个元素
-        add(size(), data);
+        if (size() == 0)
+            addAfter(head, data);
+        else
+            add(size() - 1, data);
     }
 
     public void add(int idx, T data) {  //在指定位置插入元素
         addAfter(getNode(idx), data);
     }
 
+
     private void addAfter(Node<T> p, T data) {
         Node<T> newT = new Node<>(data);
-        newT.next = end;
+        newT.next = p.next;
         p.next = newT;
 
         size++;
@@ -43,27 +45,51 @@ public class SLinkedList<T> implements Iterable<T> {
     }
 
     private Node<T> getNode(int idx) {
-        return getNode(idx, 0, size());
+        return getNode(idx, 0, size() - 1);
     }
 
     private Node<T> getNode(int idx, int lower, int upper) {
         if (idx < lower || idx > upper)
             throw new IndexOutOfBoundsException();
-        Node<T> p = head;
+        if (lower < 0 || upper > size() - 1)
+            throw new IndexOutOfBoundsException();
+        Node<T> p = head.next;
         for (int i = 0; i < idx; i++) {
             p = p.next;
         }
         return p;
     }
 
+    //反转链表
+    public void reverse() {
+        Node<T> rev = null;
+        Node<T> curr = head.next;
+        while (curr != null) {
+            Node<T> temp = curr.next;
+            curr.next = rev;
+            rev = curr;
+            curr = temp;
+        }
+        head.next = rev;
+    }
+
+    public T remove() {
+        return remove(size() - 1);
+    }
 
     public T remove(int idx) {  //删除一个元素
         return remove(getNode(idx));
     }
 
     private T remove(Node<T> p) {   //删除后一个结点
-        T old = p.next.data;
-        p.next = p.next.next;
+        if (head.next == null)
+            throw new NoSuchElementException();
+        Node temp = head;
+        T old = p.data;
+        while (temp.next != p) {
+            temp = temp.next;
+        }
+        temp.next = p.next;
         size--;
         modCount++;
         return old;
@@ -91,7 +117,7 @@ public class SLinkedList<T> implements Iterable<T> {
 
         @Override
         public boolean hasNext() {
-            return curr.next != end;
+            return curr.next != null;
         }
 
         @Override
@@ -113,7 +139,7 @@ public class SLinkedList<T> implements Iterable<T> {
                 throw new ConcurrentModificationException();
             if (!okToRemove)
                 throw new IllegalStateException();
-            SLinkedList.this.remove(size());
+            SLinkedList.this.remove();
             exceptedModCount++;
             okToRemove = false;
         }

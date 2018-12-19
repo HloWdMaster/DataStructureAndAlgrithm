@@ -19,6 +19,16 @@ public class SLinkedList<T> implements Iterable<T> {
         size = 0;
     }
 
+    public SLinkedList(T... nodes) {
+        this();
+//        for (int i = 0; i < nodes.length; i++) {
+//            insert(nodes[i]);
+//        }
+        for (T node : nodes) {
+            insert(node);
+        }
+    }
+
     public int size() { //单链表尺寸
         return size;
     }

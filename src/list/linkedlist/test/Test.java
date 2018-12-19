@@ -8,13 +8,15 @@ import list.linkedlist.SLinkedList;
 public class Test {
     public static void main(String[] args) {
         SLinkedList<Integer> list = new SLinkedList<>();
-
-        list.insert(4);
-        list.insert(2);
-        list.insert(3);
-//        list.remove(2);
-        list.reverse();
-        System.out.println(list);
+        SLinkedList<Integer> arr = new SLinkedList<>(1,2,4,5);
+//        arr.reverse();
+        System.out.println(arr);
+//        list.insert(4);
+//        list.insert(2);
+//        list.insert(3);
+////        list.remove(2);
+//        list.reverse();
+//        System.out.println(list);
 
 //        List<Integer> list= new ArrayList<>();
 //        list.add(1);

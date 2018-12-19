@@ -2,9 +2,6 @@ package list.linkedlist.test;
 
 import list.linkedlist.SLinkedList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Create by 163 on 2018/12/17
  */
